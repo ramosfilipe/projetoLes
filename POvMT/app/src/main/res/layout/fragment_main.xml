@@ -13,4 +13,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <AutoCompleteTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New AutoCompleteTextView"
+        android:id="@+id/autoCompleteTextView"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar"
+        android:id="@+id/botaoConfirmarTi"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <util.MyNumberPicker
+        android:id="@+id/numberPicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        max="24"
+        min="1"
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/autoCompleteTextView"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_marginLeft="71dp" />
+    <util.MyNumberPicker
+        android:id="@+id/numberPicker2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        max="59"
+        min="0"
+        android:layout_alignTop="@+id/numberPicker1"
+        android:layout_toLeftOf="@+id/botaoConfirmarTi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Horas"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignLeft="@+id/numberPicker1"
+        android:layout_alignStart="@+id/numberPicker1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Minutos"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/numberPicker2"
+        android:layout_alignLeft="@+id/numberPicker2"
+        android:layout_alignStart="@+id/numberPicker2" />
+
 </RelativeLayout>
