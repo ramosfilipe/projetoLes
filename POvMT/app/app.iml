@@ -12,6 +12,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="Gradle: unresolved_dependency___com_android_support_support_v13__" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: unresolved_dependency___com_android_support_support_v4__" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
