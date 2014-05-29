@@ -8,8 +8,30 @@ import java.util.Date;
 public class TempoInvestido {
     private int id;
     private Date dataInicio;
-    private int tempoInvestido;
+    private String created_at;
+    private int tempoInvestidoMinuto;
     private int idAtividade;
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+
+
+
+    public int getTempoInvestidoMinuto() {
+        return tempoInvestidoMinuto;
+    }
+
+    public void setTempoInvestidoMinuto(int tempoInvestidoMinuto) {
+        this.tempoInvestidoMinuto = tempoInvestidoMinuto;
+    }
+
+
 
     public int getId() {
         return id;
@@ -31,15 +53,6 @@ public class TempoInvestido {
         this.dataInicio = dataInicio;
     }
 
-    public int getTempoInvestido() {
-        return tempoInvestido;
-    }
-
-    public void setTempoInvestido(int tempoInvestido) throws Exception {
-        if(tempoInvestido <= 0)
-            throw new Exception("tempo investido invalido");
-        this.tempoInvestido = tempoInvestido;
-    }
 
     public int getIdAtividade() {
         return idAtividade;
