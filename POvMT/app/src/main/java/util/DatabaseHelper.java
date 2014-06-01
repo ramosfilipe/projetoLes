@@ -1,8 +1,20 @@
 package util;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import boleiros.povmt.app.model.Atividade;
+import boleiros.povmt.app.model.TempoInvestido;
 
 /**
  * Criado por Filipe Ramos em 29/05/14 as 15.
@@ -73,4 +85,203 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // ------------------------ "atividade" table methods ----------------//
+
+    /**
+     * Creating a ativ
+     */
+    public long createAtividade(Atividade ativ) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NOME, ativ.getNome());
+        values.put(KEY_CREATED_AT, getDateTime());
+
+        // insert row
+        long atividade_id = db.insert(TABLE_ATIVIDADE, null, values);
+
+        return atividade_id;
+    }
+
+    /**
+     * get single atividade
+     */
+    public Atividade getAtividade(long todo_id) throws Exception {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE + " WHERE "
+                + KEY_ID + " = " + todo_id;
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        Atividade td = new Atividade();
+        td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        td.setNome((c.getString(c.getColumnIndex(KEY_ID_ATIVIDADE))));
+        td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+        return td;
+    }
+
+    /**
+     * getting all Atividades
+     * */
+    public List<Atividade> getAllAtividades() throws Exception {
+        List<Atividade> todos = new ArrayList<Atividade>();
+        String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Atividade td = new Atividade();
+                td.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+                td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
+                td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+                // adding to
+                todos.add(td);
+            } while (c.moveToNext());
+        }
+
+        return todos;
+    }
+
+
+
+    /**
+     * quantas atividades tem cadastradas
+     */
+    public int getAtividadeCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_ATIVIDADE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+
+        // return count
+        return count;
+    }
+
+    /**
+     * Updating ativade
+     */
+    public int updateAtividade(Atividade todo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NOME, todo.getNome());
+
+        // updating row
+        return db.update(TABLE_ATIVIDADE, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(todo.getId()) });
+    }
+
+    /**
+     * Deleting atividade
+     */
+    public void deleteAtividade(long atividade_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ATIVIDADE, KEY_ID + " = ?",
+                new String[] { String.valueOf(atividade_id) });
+    }
+
+    // ------------------------ "TI" table methods ----------------//
+
+    /**
+     * Creating TI
+     */
+    public long createTI(TempoInvestido ti, long id_atividade) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID_ATIVIDADE, id_atividade);
+        values.put(KEY_CREATED_AT, getDateTime());
+        values.put(KEY_TEMPO_INVESTIDO_MINUTO, ti.getTempoInvestidoMinuto());
+
+        // insert row
+        long ti_id = db.insert(TABLE_TI, null, values);
+
+        return ti_id;
+    }
+
+    /**
+     * getting all ti
+     * */
+    public List<TempoInvestido> getAllTi() throws Exception {
+        List<TempoInvestido> tis = new ArrayList<TempoInvestido>();
+        String selectQuery = "SELECT  * FROM " + TABLE_TI;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                TempoInvestido t = new TempoInvestido();
+                t.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+                t.setIdAtividade(c.getInt(c.getColumnIndex(KEY_ID_ATIVIDADE)));
+                t.setTempoInvestidoMinuto(c.getInt(c.getColumnIndex(KEY_TEMPO_INVESTIDO_MINUTO)));
+                // adding to ti list
+                tis.add(t);
+            } while (c.moveToNext());
+        }
+        return tis;
+    }
+
+    /**
+     * Updating a ti
+     */
+    public int updateTag(TempoInvestido ti) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TEMPO_INVESTIDO_MINUTO, ti.getTempoInvestidoMinuto());
+        values.put(KEY_ID_ATIVIDADE, ti.getIdAtividade());
+
+
+        // updating row
+        return db.update(TABLE_TI, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(ti.getId()) });
+    }
+
+    /**
+     * Deleting a ti
+     */
+    public void deleteTI(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TI, KEY_ID + " = ?",
+                new String[] { String.valueOf(id) });
+
+    }
+  SQLiteDatabase db = this.getWritableDatabase();
+
+
+    // closing database
+    public void closeDB() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen())
+            db.close();
+    }
+
+    /**
+     * get datetime
+     * */
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 }
