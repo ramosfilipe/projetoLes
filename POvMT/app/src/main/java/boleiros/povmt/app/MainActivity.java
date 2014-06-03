@@ -203,12 +203,20 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                 MyNumberPicker minutos = (MyNumberPicker) rootView.findViewById(R.id.numberPicker2);
                 DatabaseHelper bd = new DatabaseHelper(rootView.getContext());
                 public void onClick(View v) {
-                    Atividade ativ = new Atividade();
                     TempoInvestido ti = new TempoInvestido();
                     try {
-                        ativ.setNome(texto.getText().toString());
+                        Atividade ativ = null;
+                        long idAtividade = -1;
+                        String nomeAtividade = texto.getText().toString();
+                        if(bd.isActivityOnDB(nomeAtividade)){
+                            ativ = bd.getAtividadeByName(nomeAtividade);
+                            idAtividade = ativ.getId();
+                        }
+                        else{
+                            ativ.setNome(nomeAtividade);
+                            idAtividade = bd.createAtividade(ativ);
+                        }
                         ti.setTempoInvestidoMinuto((horas.getValue() * 60) + minutos.getValue());
-                        long idAtividade = bd.createAtividade(ativ);
                         bd.createTI(ti,idAtividade);
                         Log.d("Tag","msg " + bd.getAtividadeCount());
                     } catch (Exception e) {
