@@ -129,11 +129,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * get single atividade by name
      */
-    public Atividade getAtividadeByName(String nome) throws Exception {
+    public Atividade getAtividadeByName(String nome1) throws Exception {
         SQLiteDatabase db = this.getReadableDatabase();
+        String var= "'"+nome1+"'";
 
         String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE + " WHERE "
-                + KEY_NOME + " = " + nome;
+                + KEY_NOME + " = " + var;
 
         Log.e(LOG, selectQuery);
 
