@@ -153,20 +153,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * activity exists?
      */
-    public Boolean isActivityOnDB(String nome) throws Exception {
+    public Boolean isActivityOnDB(String nome1) throws Exception {
         SQLiteDatabase db = this.getReadableDatabase();
-
+        String var= "'"+nome1+"'";
         String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE + " WHERE "
-                + KEY_NOME + " = " + nome;
+                + KEY_NOME + " = " + var;
 
         Log.e(LOG, selectQuery);
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c == null)
-            return false;
-        return true;
-    } 
+        if (c != null) {
+            if(c.moveToFirst()){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     /**
