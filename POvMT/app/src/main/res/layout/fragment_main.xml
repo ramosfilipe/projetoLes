@@ -16,7 +16,6 @@
     <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New AutoCompleteTextView"
         android:id="@+id/autoCompleteTextView"
         android:layout_toRightOf="@+id/section_label"
         android:layout_alignParentTop="true"
@@ -72,5 +71,15 @@
         android:layout_above="@+id/numberPicker2"
         android:layout_alignLeft="@+id/numberPicker2"
         android:layout_alignStart="@+id/numberPicker2" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/botaoConfirmarTi"
+        android:layout_below="@+id/numberPicker1" />
+
 
 </RelativeLayout>

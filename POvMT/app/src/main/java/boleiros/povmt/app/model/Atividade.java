@@ -35,4 +35,8 @@ public class Atividade {
             throw new Exception("nome inválido");
         this.nome = nome;
     }
+    @Override
+    public String toString(){
+        return getNome();
+    }
 }

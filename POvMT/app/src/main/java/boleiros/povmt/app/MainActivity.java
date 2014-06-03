@@ -10,13 +10,25 @@ import android.app.FragmentTransaction;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import boleiros.povmt.app.model.Atividade;
+import boleiros.povmt.app.model.TempoInvestido;
+import util.DatabaseHelper;
+import util.MyNumberPicker;
 
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
@@ -35,6 +47,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    DatabaseHelper bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +61,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -62,6 +74,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                 actionBar.setSelectedNavigationItem(position);
             }
         });
+
+
+
 
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
@@ -178,9 +193,32 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView;
+            final View rootView;
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+            final Button confirma = (Button) rootView.findViewById(R.id.botaoConfirmarTi);
+            confirma.setOnClickListener(new View.OnClickListener() {
+                AutoCompleteTextView texto = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
+                MyNumberPicker horas = (MyNumberPicker) rootView.findViewById(R.id.numberPicker1);
+                MyNumberPicker minutos = (MyNumberPicker) rootView.findViewById(R.id.numberPicker2);
+                DatabaseHelper bd = new DatabaseHelper(rootView.getContext());
+                public void onClick(View v) {
+                    Atividade ativ = new Atividade();
+                    TempoInvestido ti = new TempoInvestido();
+                    try {
+                        ativ.setNome(texto.getText().toString());
+                        ti.setTempoInvestidoMinuto((horas.getValue() * 60) + minutos.getValue());
+                        long idAtividade = bd.createAtividade(ativ);
+                        bd.createTI(ti,idAtividade);
+                        Log.d("Tag","msg " + bd.getAtividadeCount());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    texto.setText("");
+
+                }
+            });
 //            if(getArguments().getInt(ARG_SECTION_NUMBER)==1) {
 //                rootView = inflater.inflate(R.layout.fragment_main, container, false);
 //            }
@@ -190,7 +228,20 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 //            //if(getArguments().getInt(ARG_SECTION_NUMBER)==3) {
 //                rootView = inflater.inflate(R.layout.fragment_tab3, container, false);
 //            }
+            DatabaseHelper bd = new DatabaseHelper(this.getActivity());
+            ListView list = (ListView) rootView.findViewById(R.id.listView);
+            try {
+                ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,bd.getAllAtividades());
+                list.setAdapter(adapt);
+                AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
+                autoCompleteTextView.setAdapter(adapt);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+
             textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
