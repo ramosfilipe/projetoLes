@@ -121,11 +121,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Atividade td = new Atividade();
         td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-        td.setNome((c.getString(c.getColumnIndex(KEY_ID_ATIVIDADE))));
+        td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
         td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
 
         return td;
     }
+    /**
+     * get single atividade by name
+     */
+    public Atividade getAtividadeByName(String nome) throws Exception {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE + " WHERE "
+                + KEY_NOME + " = " + nome;
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        Atividade td = new Atividade();
+        td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
+        td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+
+        return td;
+    }
+
+    /**
+     * activity exists?
+     */
+    public Boolean isActivityOnDB(String nome) throws Exception {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE + " WHERE "
+                + KEY_NOME + " = " + nome;
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c == null)
+            return false;
+        return true;
+    } 
+
 
     /**
      * getting all Atividades
