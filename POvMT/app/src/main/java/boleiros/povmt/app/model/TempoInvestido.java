@@ -19,18 +19,12 @@ public class TempoInvestido {
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
-
-
-
-
     public int getTempoInvestidoMinuto() {
         return tempoInvestidoMinuto;
     }
-
     public void setTempoInvestidoMinuto(int tempoInvestidoMinuto) {
         this.tempoInvestidoMinuto = tempoInvestidoMinuto;
     }
-
 
 
     public int getId() {
@@ -62,5 +56,11 @@ public class TempoInvestido {
         if(idAtividade < 0)
             throw new Exception("id da atividade inválido");
         this.idAtividade = idAtividade;
+    }
+
+
+    @Override
+    public String toString(){
+        return ""+getTempoInvestidoMinuto();
     }
 }
