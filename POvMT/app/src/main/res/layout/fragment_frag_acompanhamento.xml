@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="boleiros.povmt.app.FragAcompanhamento"
-    android:id="@+id/">
+    android:id="@+id/fragAcompanhamento">
 
 
     <ListView
