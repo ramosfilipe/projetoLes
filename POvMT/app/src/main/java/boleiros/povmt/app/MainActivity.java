@@ -188,6 +188,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         }
 
         public PlaceholderFragment() {
+
         }
 
         @Override
@@ -205,14 +206,15 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                 public void onClick(View v) {
                     TempoInvestido ti = new TempoInvestido();
                     try {
-                        Atividade ativ = null;
-                        long idAtividade = -1;
+                        Atividade ativ;
+                        long idAtividade;
                         String nomeAtividade = texto.getText().toString();
                         if(bd.isActivityOnDB(nomeAtividade)){
                             ativ = bd.getAtividadeByName(nomeAtividade);
                             idAtividade = ativ.getId();
                         }
                         else{
+                            ativ = new Atividade();
                             ativ.setNome(nomeAtividade);
                             idAtividade = bd.createAtividade(ativ);
                         }
@@ -222,7 +224,15 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
+                    try {
+                        ListView list = (ListView) rootView.findViewById(R.id.listView);
+                        ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,bd.getAllAtividades());
+                        list.setAdapter(adapt);
+                        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
+                        autoCompleteTextView.setAdapter(adapt);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     texto.setText("");
 
                 }
