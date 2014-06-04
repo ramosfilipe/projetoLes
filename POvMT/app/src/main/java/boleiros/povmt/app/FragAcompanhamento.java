@@ -60,6 +60,8 @@ public class FragAcompanhamento extends Fragment  {
         long primeiroDia,ultimoDia;
         DatabaseHelper bd = new DatabaseHelper(this.getActivity());
         List<TempoInvestido> listaTI = bd.getAllTi();
+        System.out.println(listaTI.get(0).getCreated_at());
+        System.out.println("aqi");
         ArrayList<TempoInvestido> listaResposta = new ArrayList<TempoInvestido>();
         Calendar c = Calendar.getInstance();
 
@@ -73,6 +75,7 @@ public class FragAcompanhamento extends Fragment  {
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
         for(TempoInvestido ti: listaTI){
+            System.out.println( ti.getCreated_at());
             c.setTime(dateFormat.parse(ti.getCreated_at()));
             long tempoTi = c.getTimeInMillis();
             if(tempoTi>=primeiroDia && tempoTi<=ultimoDia){
@@ -123,7 +126,8 @@ public class FragAcompanhamento extends Fragment  {
             TextView tx = (TextView) rootView.findViewById(R.id.textViewResultadoDeHoras);
             ArrayList<ElementoRankiavel> arrayFinal = geraLista(array,totalTempo);
             ArrayAdapter<ElementoRankiavel> adapt = new ArrayAdapter<ElementoRankiavel>(rootView.getContext(),R.layout.simplerow,arrayFinal);
-
+            tx.setText(totalTempo);
+            System.out.println(totalTempo);
 
             list.setAdapter(adapt);
 
