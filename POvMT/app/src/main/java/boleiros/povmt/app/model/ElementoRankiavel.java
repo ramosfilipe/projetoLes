@@ -24,17 +24,17 @@ public class ElementoRankiavel {
 
     private int horas;
 
-    public int getProporcao() {
+    public double getProporcao() {
         return proporcao;
     }
 
-    public void setProporcao(int proporcao) {
+    public void setProporcao(double proporcao) {
         this.proporcao = proporcao;
     }
 
-    private int proporcao;
+    private double proporcao;
 
-    public ElementoRankiavel(String nome, int horas, int proporcao) {
+    public ElementoRankiavel(String nome, int horas, double proporcao) {
         this.nome = nome;
         this.horas = horas;
         this.proporcao = proporcao;
@@ -46,6 +46,8 @@ public class ElementoRankiavel {
     @Override
 
     public String toString(){
-        return getNome()+": "+getHoras()+"Prop: "+getProporcao();
+        String prop = ""+(getProporcao()*100);
+        prop = prop.substring(0,4);
+        return getNome()+": "+getHoras()+"  Prop: "+prop+" %";
     }
 }

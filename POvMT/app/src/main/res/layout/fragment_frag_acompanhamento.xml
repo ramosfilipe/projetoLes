@@ -13,19 +13,11 @@
         android:layout_gravity="center_horizontal|bottom" />
 
     <TextView
-        android:layout_width="275dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Total de horas Investidas:"
         android:id="@+id/textViewTotaldeHoras"
         android:layout_gravity="left|top" />
-
-    <TextView
-        android:layout_width="116dp"
-        android:layout_height="90dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/textViewResultadoDeHoras"
-        android:layout_gravity="right|top"
-         />
 
 </FrameLayout>

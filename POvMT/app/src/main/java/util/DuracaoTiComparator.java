@@ -11,6 +11,6 @@ public class DuracaoTiComparator implements Comparator<TempoInvestido> {
 
     @Override
     public int compare(TempoInvestido tempoInvestido, TempoInvestido tempoInvestido2) {
-        return tempoInvestido.getTempoInvestidoMinuto()- tempoInvestido2.getTempoInvestidoMinuto();
+        return tempoInvestido2.getTempoInvestidoMinuto()- tempoInvestido.getTempoInvestidoMinuto();
     }
 }
