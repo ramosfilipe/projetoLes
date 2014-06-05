@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class FragAcompanhamento extends Fragment  {
      * The fragment argument representing the section number for this
      * fragment.
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_SECTION_NUMBER = "2";
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -46,6 +47,7 @@ public class FragAcompanhamento extends Fragment  {
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
+
         return fragment;
     }
     public FragAcompanhamento() {
@@ -137,7 +139,6 @@ public class FragAcompanhamento extends Fragment  {
         try {
             ArrayList<TempoInvestido> array = getRanking();
            // System.out.println(array.get(0));
-
             int totalTempo = getTotalHoras(array);
             if(totalTempo%60 == 0) {
                 tx.setText("Tempo total investido: " + totalTempo / 60 + " horas");

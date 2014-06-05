@@ -34,7 +34,7 @@ public class FragHistorico extends Fragment {
      * The fragment argument representing the section number for this
      * fragment.
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_SECTION_NUMBER = "3";
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -75,9 +75,9 @@ public class FragHistorico extends Fragment {
             ArrayList<ElementoRankiavel> semanaPassadaFinal = geraLista(semanaPassada, getTotalHoras(semanaPassada));
             ArrayList<ElementoRankiavel> semanaRetrasadaFinal = geraLista(semanaRetrasada, getTotalHoras(semanaRetrasada));
 
-            Toast t = Toast.makeText(historicoView.getContext(), "Tamanho da lista atual: " + semanaAtualFinal.size(), Toast.LENGTH_SHORT);
+//            Toast t = Toast.makeText(historicoView.getContext(), "", Toast.LENGTH_SHORT);
 
-            t.show();
+          //  t.show();
 
             ArrayAdapter<ElementoRankiavel> adaptAtual = new ArrayAdapter<ElementoRankiavel>(
                     historicoView.getContext(),R.layout.simplerow,semanaAtualFinal);

@@ -6,12 +6,6 @@
     android:id="@+id/fragAcompanhamento">
 
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="423dp"
-        android:id="@+id/listViewRanking"
-        android:layout_gravity="center_horizontal|bottom" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,5 +13,11 @@
         android:text="Total de horas Investidas:"
         android:id="@+id/textViewTotaldeHoras"
         android:layout_gravity="left|top" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="376dp"
+        android:id="@+id/listViewRanking"
+        android:layout_gravity="center" />
 
 </FrameLayout>

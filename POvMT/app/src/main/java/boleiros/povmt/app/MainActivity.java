@@ -1,5 +1,7 @@
 package boleiros.povmt.app;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -7,6 +9,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -17,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -143,13 +147,16 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case(0):
-                    return  PlaceholderFragment.newInstance(position + 1);
+                    return  boleiros.povmt.app.FragHistorico.newInstance(position );
+
                 case(1):
-                    return FragAcompanhamento.newInstance(position +1);
+                    return  PlaceholderFragment.newInstance(position );
+
                 case(2):
-                    return boleiros.povmt.app.FragHistorico.newInstance(position + 1);
+                    return  FragAcompanhamento.newInstance(position );
+
                 default:
-                    return  PlaceholderFragment.newInstance(position + 1);
+                    return  PlaceholderFragment.newInstance(position );
 
 
             }
@@ -210,6 +217,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
             final Button confirma = (Button) rootView.findViewById(R.id.botaoConfirmarTi);
             confirma.setOnClickListener(new View.OnClickListener() {
+
                 AutoCompleteTextView texto = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
                 MyNumberPicker horas = (MyNumberPicker) rootView.findViewById(R.id.numberPicker1);
                 MyNumberPicker minutos = (MyNumberPicker) rootView.findViewById(R.id.numberPicker2);
@@ -236,8 +244,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                         e.printStackTrace();
                     }
                     try {
+                        List<Atividade> lista = bd.getAllAtividades();
+                        Collections.reverse(lista);
                         ListView list = (ListView) rootView.findViewById(R.id.listView);
-                        ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,bd.getAllAtividades());
+                        ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,lista);
                         list.setAdapter(adapt);
                         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
                         autoCompleteTextView.setAdapter(adapt);
@@ -260,7 +270,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             DatabaseHelper bd = new DatabaseHelper(this.getActivity());
             ListView list = (ListView) rootView.findViewById(R.id.listView);
             try {
-                ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,bd.getAllAtividades());
+                List<Atividade> lista = bd.getAllAtividades();
+                Collections.reverse(lista);
+                ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,lista);
                 list.setAdapter(adapt);
                 AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
                 autoCompleteTextView.setAdapter(adapt);
