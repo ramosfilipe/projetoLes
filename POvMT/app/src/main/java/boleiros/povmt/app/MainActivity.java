@@ -148,7 +148,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                     return FragAcompanhamento.newInstance(position +1);
                 case(2):
                     return boleiros.povmt.app.FragHistorico.newInstance(position + 1);
-                default: //return new FragAcompanhamento();
+                default:
                     return  PlaceholderFragment.newInstance(position + 1);
 
 

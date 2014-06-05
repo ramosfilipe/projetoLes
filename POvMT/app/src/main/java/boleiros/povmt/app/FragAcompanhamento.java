@@ -71,7 +71,7 @@ public class FragAcompanhamento extends Fragment  {
         primeiroDia = c.getTimeInMillis();
         c.clear();
         c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_WEEK,6);
+        c.set(Calendar.DAY_OF_WEEK,7);
         ultimoDia = c.getTimeInMillis();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -100,8 +100,14 @@ public class FragAcompanhamento extends Fragment  {
         for(TempoInvestido elemento: lista){
             Atividade ativ = db.getAtividade(elemento.getIdAtividade());
                 ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),elemento.getTempoInvestidoMinuto(),(elemento.getTempoInvestidoMinuto()/(float) totalDeHoras));
-            listaResposta.add(el);
-        }
+            if(listaResposta.contains(el)){
+                listaResposta.get(listaResposta.indexOf(el)).somaMinutos(el.getHoras());
+
+            }else {
+                listaResposta.add(el);
+            }
+
+            }
 
         return listaResposta;
 
@@ -133,8 +139,11 @@ public class FragAcompanhamento extends Fragment  {
            // System.out.println(array.get(0));
 
             int totalTempo = getTotalHoras(array);
-            tx.setText("Total de horas Investidas: "+totalTempo);
-
+            if(totalTempo%60 == 0) {
+                tx.setText("Tempo total investido: " + totalTempo / 60 + " horas");
+            } else{
+                tx.setText("Tempo total investido: " + totalTempo / 60 + " horas e " + totalTempo%60 + " minutos");
+            }
             ArrayList<ElementoRankiavel> arrayFinal = geraLista(array,totalTempo);
             ArrayAdapter<ElementoRankiavel> adapt = new ArrayAdapter<ElementoRankiavel>(rootView2.getContext(),R.layout.simplerow,arrayFinal);
           // tx.setText(totalTempo);

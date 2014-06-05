@@ -62,7 +62,6 @@ public class FragHistorico extends Fragment {
                              Bundle savedInstanceState) {
 
         View historicoView = inflater.inflate(R.layout.fragment_historico, container, false);
-
         ListView listSemanaAtual = (ListView) historicoView.findViewById(R.id.listViewSemanaAtual);
         ListView listSemanaPassada = (ListView) historicoView.findViewById(R.id.listViewSemanaPassada);
         ListView listSemanaRetrasada = (ListView) historicoView.findViewById(R.id.listViewSemanaRetrasada);
@@ -71,8 +70,6 @@ public class FragHistorico extends Fragment {
             ArrayList<TempoInvestido> semanaAtual = getRanking(0);
             ArrayList<TempoInvestido> semanaPassada = getRanking(1);
             ArrayList<TempoInvestido> semanaRetrasada = getRanking(2);
-
-
 
             ArrayList<ElementoRankiavel> semanaAtualFinal = geraLista(semanaAtual, getTotalHoras(semanaAtual));
             ArrayList<ElementoRankiavel> semanaPassadaFinal = geraLista(semanaPassada, getTotalHoras(semanaPassada));
@@ -126,7 +123,7 @@ public class FragHistorico extends Fragment {
         primeiroDia = c.getTimeInMillis() -  (SEMANA_EM_MS * semanaDesejada);
         c.clear();
         c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_WEEK,6);
+        c.set(Calendar.DAY_OF_WEEK,7);
         ultimoDia = c.getTimeInMillis() -  (SEMANA_EM_MS * semanaDesejada);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -157,7 +154,14 @@ public class FragHistorico extends Fragment {
         for(TempoInvestido elemento: lista){
             Atividade ativ = db.getAtividade(elemento.getIdAtividade());
             ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),elemento.getTempoInvestidoMinuto(),(elemento.getTempoInvestidoMinuto()/(float) totalDeHoras));
-            listaResposta.add(el);
+
+            if(listaResposta.contains(el)){
+                listaResposta.get(listaResposta.indexOf(el)).somaMinutos(el.getHoras());
+                listaResposta.get(listaResposta.indexOf(el)).somaProp(el.getProporcao());
+
+            }else {
+                listaResposta.add(el);
+            }
         }
 
         return listaResposta;
