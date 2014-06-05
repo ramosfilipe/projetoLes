@@ -60,7 +60,9 @@ public class FragAcompanhamento extends Fragment  {
         long primeiroDia,ultimoDia;
         DatabaseHelper bd = new DatabaseHelper(this.getActivity());
         List<TempoInvestido> listaTI = bd.getAllTi();
-        System.out.println(listaTI.get(0).getCreated_at());
+        System.out.println("aqi");
+
+        System.out.println(listaTI.get(0).getCreated_at().toString());
         System.out.println("aqi");
         ArrayList<TempoInvestido> listaResposta = new ArrayList<TempoInvestido>();
         Calendar c = Calendar.getInstance();

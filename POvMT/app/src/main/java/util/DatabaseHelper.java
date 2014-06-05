@@ -279,6 +279,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 t.setId(c.getInt((c.getColumnIndex(KEY_ID))));
                 t.setIdAtividade(c.getInt(c.getColumnIndex(KEY_ID_ATIVIDADE)));
                 t.setTempoInvestidoMinuto(c.getInt(c.getColumnIndex(KEY_TEMPO_INVESTIDO_MINUTO)));
+                t.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
                 // adding to ti list
                 tis.add(t);
             } while (c.moveToNext());
