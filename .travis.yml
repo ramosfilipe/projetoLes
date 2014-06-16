@@ -11,12 +11,13 @@ android:
 before_install:
   - chmod +x gradlew
  # Create and start emulator
- - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
- - emulator -avd test -no-skin -no-audio -no-window &
+
 
 before_script:
  - chmod +x wait_for_emulator
- - ./wait_for_emulator
+ - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+ - emulator -avd test -no-skin -no-audio -no-window &
+- ./wait_for_emulator
 
 
 
