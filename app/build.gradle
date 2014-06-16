@@ -1,5 +1,21 @@
 apply plugin: 'android'
 
+
+sourceSets {
+    testLocal {
+        java.srcDir file('src/test/java')
+        resources.srcDir file('src/test/resources')
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+
 android {
     compileSdkVersion 19
     buildToolsVersion "19.1.0"
