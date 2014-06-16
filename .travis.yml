@@ -25,4 +25,4 @@ before_script:
 
 #install: gradle clean build
 
-script: gradle instrumentTest  
+script: gradle connectedInstrumentTest  
