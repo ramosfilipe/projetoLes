@@ -41,6 +41,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // atividades Table - column names
     private static final String KEY_NOME = "nome";
+    private static final String KEY_PRIORIDADE = "prioridade";
+
 
     // tempo Investido Table - column names
     private static final String KEY_ID_ATIVIDADE = "id_atividade_que_ele_mapeia";
@@ -52,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Create Statements
     // Todo table create statement
     private static final String CREATE_TABLE_ATIVIDADE  = "CREATE TABLE "
-            + TABLE_ATIVIDADE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NOME
+            + TABLE_ATIVIDADE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIORIDADE+ " TEXT,"+ KEY_NOME
             + " TEXT," + KEY_CREATED_AT
             + " DATETIME" + ")";
 
@@ -96,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NOME, ativ.getNome());
         values.put(KEY_CREATED_AT, getDateTime());
+        values.put(KEY_PRIORIDADE, ativ.getPrioridade());
 
         // insert row
         long atividade_id = db.insert(TABLE_ATIVIDADE, null, values);
@@ -123,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
         td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
         td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
-
+        td.setPrioridade(c.getString(c.getColumnIndex(KEY_PRIORIDADE)));
         return td;
     }
     /**
@@ -147,6 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
         td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
         td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+        td.setPrioridade(c.getString(c.getColumnIndex(KEY_PRIORIDADE)));
 
         return td;
     }
@@ -192,6 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 td.setId(c.getInt((c.getColumnIndex(KEY_ID))));
                 td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
                 td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+                td.setPrioridade(c.getString(c.getColumnIndex(KEY_PRIORIDADE)));
 
                 // adding to
                 todos.add(td);

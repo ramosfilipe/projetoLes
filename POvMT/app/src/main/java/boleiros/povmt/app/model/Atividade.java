@@ -4,6 +4,15 @@ public class Atividade {
     private int id;
     private String nome;
     private String created_at;
+    private String prioridade;
+
+    public String getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(String prioridade) {
+        this.prioridade = prioridade;
+    }
 
 
     public String getCreated_at() {
