@@ -1,12 +1,6 @@
 apply plugin: 'android'
 
 
-sourceSets {
-    testLocal {
-        java.srcDir file('src/test/java')
-        resources.srcDir file('src/test/resources')
-    }
-}
 
 repositories {
     mavenCentral()
@@ -20,11 +14,24 @@ android {
     compileSdkVersion 19
     buildToolsVersion "19.1.0"
 
+    sourceSets {
+
+
+        instrumentTest.setRoot('tests')
+        instrumentTest {
+            java.srcDirs = ['tests/src']
+            res.srcDirs = ['tests/res']
+            assets.srcDirs = ['tests/assets']
+            resources.srcDirs = ['tests/src']
+        }
+    }
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
+        testPackageName "boleiros.povmt.app.tests"
+
     }
     buildTypes {
         release {
