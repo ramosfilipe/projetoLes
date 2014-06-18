@@ -125,8 +125,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Atividade td = new Atividade();
         td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
         td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
-        td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
-        td.setPrioridade(c.getString(c.getColumnIndex(KEY_PRIORIDADE)));
+        td.setCreated_at((c.getString(c.getColumnIndex(KEY_CREATED_AT))));
+        td.setPrioridade((c.getString(c.getColumnIndex(KEY_PRIORIDADE))));
         return td;
     }
     /**
@@ -147,10 +147,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.moveToFirst();
 
         Atividade td = new Atividade();
-        td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        td.setId((c.getInt(c.getColumnIndex(KEY_ID))));
         td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
-        td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
-        td.setPrioridade(c.getString(c.getColumnIndex(KEY_PRIORIDADE)));
+        td.setCreated_at((c.getString(c.getColumnIndex(KEY_CREATED_AT))));
+        td.setPrioridade((c.getString(c.getColumnIndex(KEY_PRIORIDADE))));
 
         return td;
     }
@@ -195,8 +195,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Atividade td = new Atividade();
                 td.setId(c.getInt((c.getColumnIndex(KEY_ID))));
                 td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
-                td.setCreated_at(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
-                td.setPrioridade(c.getString(c.getColumnIndex(KEY_PRIORIDADE)));
+                td.setCreated_at((c.getString(c.getColumnIndex(KEY_CREATED_AT))));
+                td.setPrioridade((c.getString(c.getColumnIndex(KEY_PRIORIDADE))));
 
                 // adding to
                 todos.add(td);

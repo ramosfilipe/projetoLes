@@ -34,11 +34,22 @@ public class ElementoRankiavel {
 
     private double proporcao;
 
-    public ElementoRankiavel(String nome, int horas, double proporcao) {
+    public String getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(String prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    private String prioridade;
+
+    public ElementoRankiavel(String nome, int horas, double proporcao , String prioridade) {
         this.nome = nome;
         this.horas = horas;
         this.proporcao = proporcao;
 
+        this.prioridade = prioridade;
     }
     public void somaMinutos(int valor){
         setHoras(this.horas+valor);
@@ -67,12 +78,12 @@ public class ElementoRankiavel {
         prop = prop.substring(0,4);
         int numHoras = getHoras();
         if(numHoras%60 == 0) {
-            if(numHoras/60 == 1) return getNome() + ": " + getHoras()/60 + " hora | Prop: " + prop + " %";
-            return getNome() + ": " + getHoras()/60 + " horas | Prop: " + prop + " %";
+            if(numHoras/60 == 1) return getNome() + ": " + getHoras()/60 + " hora | Prop: " + prop + " %" + " | " + getPrioridade();
+            return getNome() + ": " + getHoras()/60 + " horas | Prop: " + prop + " %"+ " | " + getPrioridade();
         } else{
             int numMinutos = numHoras%60;
-            if(numHoras/60 == 1) return getNome() + ": " + getHoras()/60 + " hora e " + numMinutos +" minutos | Prop: " + prop + " %";
-            return getNome() + ": " + getHoras()/60 + " horas e " + numMinutos +" minutos | Prop: " + prop + " %";
+            if(numHoras/60 == 1) return getNome() + ": " + getHoras()/60 + " hora e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
+            return getNome() + ": " + getHoras()/60 + " horas e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
         }
     }
 }

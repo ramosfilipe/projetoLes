@@ -26,6 +26,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -214,6 +215,16 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                 Bundle savedInstanceState) {
             final View rootView;
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
+            // Create an ArrayAdapter using the string array and a default spinner layout
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                    R.array.lista_de_prioridades, android.R.layout.simple_spinner_item);
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // Apply the adapter to the spinner
+            spinner.setAdapter(adapter);
+            Object position = spinner.getSelectedItem();
+
 
             final Button confirma = (Button) rootView.findViewById(R.id.botaoConfirmarTi);
             confirma.setOnClickListener(new View.OnClickListener() {
@@ -221,19 +232,26 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                 AutoCompleteTextView texto = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
                 MyNumberPicker horas = (MyNumberPicker) rootView.findViewById(R.id.numberPicker1);
                 MyNumberPicker minutos = (MyNumberPicker) rootView.findViewById(R.id.numberPicker2);
+                Object position = spinner.getSelectedItem();
+
+
                 DatabaseHelper bd = new DatabaseHelper(rootView.getContext());
                 public void onClick(View v) {
+                    position = spinner.getSelectedItem();
                     TempoInvestido ti = new TempoInvestido();
                     try {
                         Atividade ativ;
                         long idAtividade;
                         String nomeAtividade = texto.getText().toString();
+                        String prioridadeAtividade = position.toString();
+
                         if(bd.isActivityOnDB(nomeAtividade)){
                             ativ = bd.getAtividadeByName(nomeAtividade);
                             idAtividade = ativ.getId();
                         }
                         else{
                             ativ = new Atividade();
+                            ativ.setPrioridade(prioridadeAtividade);
                             ativ.setNome(nomeAtividade);
                             idAtividade = bd.createAtividade(ativ);
                         }
@@ -258,16 +276,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
                 }
             });
-//            if(getArguments().getInt(ARG_SECTION_NUMBER)==1) {
-//                rootView = inflater.inflate(R.layout.fragment_main, container, false);
-//            }
-//            if(getArguments().getInt(ARG_SECTION_NUMBER)==2) {
-//                rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
-//            }else{
-//            //if(getArguments().getInt(ARG_SECTION_NUMBER)==3) {
-//                rootView = inflater.inflate(R.layout.fragment_tab3, container, false);
-//            }
             DatabaseHelper bd = new DatabaseHelper(this.getActivity());
+            position = spinner.getSelectedItem();
             ListView list = (ListView) rootView.findViewById(R.id.listView);
             try {
                 List<Atividade> lista = bd.getAllAtividades();

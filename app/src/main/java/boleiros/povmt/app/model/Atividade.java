@@ -46,6 +46,6 @@ public class Atividade {
     }
     @Override
     public String toString(){
-        return getNome();
+        return getNome()+"|"+getPrioridade();
     }
 }

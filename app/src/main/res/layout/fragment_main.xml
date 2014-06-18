@@ -31,45 +31,80 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <util.MyNumberPicker
-        android:id="@+id/numberPicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        max="24"
-        min="1"
-        android:layout_marginTop="52dp"
-        android:layout_below="@+id/autoCompleteTextView"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_marginLeft="71dp" />
-    <util.MyNumberPicker
-        android:id="@+id/numberPicker2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        max="59"
-        min="0"
-        android:layout_alignTop="@+id/numberPicker1"
-        android:layout_toLeftOf="@+id/botaoConfirmarTi" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Minutos"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/numberPicker2"
-        android:layout_alignLeft="@+id/numberPicker2"
-        android:layout_alignStart="@+id/numberPicker2" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_above="@+id/botaoConfirmarTi"
-        android:layout_below="@+id/numberPicker1" />
+        android:layout_below="@+id/autoCompleteTextView"
+        android:layout_alignRight="@+id/autoCompleteTextView"
+        android:layout_alignEnd="@+id/autoCompleteTextView">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="148dp"
+            android:id="@+id/listView"
+            android:layout_gravity="center_horizontal|bottom" />
+
+
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_gravity="left|center_vertical" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal|top"
+            android:id="@+id/relativeLayout2">
+
+            <util.MyNumberPicker
+                android:id="@+id/numberPicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                max="24"
+                min="1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="88dp" />
+
+            <util.MyNumberPicker
+                android:id="@+id/numberPicker2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|top"
+                max="59"
+                min="0"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/numberPicker1"
+                android:layout_marginLeft="39dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horas"
+                android:id="@+id/textView"
+                android:layout_marginTop="36dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minutos"
+                android:id="@+id/textView3"
+                android:layout_toRightOf="@+id/numberPicker2"
+                android:layout_alignBottom="@+id/textView"
+                android:layout_alignTop="@+id/textView" />
+        </RelativeLayout>
+
+
+    </FrameLayout>
 
 
 </RelativeLayout>

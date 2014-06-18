@@ -53,10 +53,6 @@ public class FragHistorico extends Fragment {
         // Required empty public constructor
     }
 
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -153,7 +149,8 @@ public class FragHistorico extends Fragment {
 
         for(TempoInvestido elemento: lista){
             Atividade ativ = db.getAtividade(elemento.getIdAtividade());
-            ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),elemento.getTempoInvestidoMinuto(),(elemento.getTempoInvestidoMinuto()/(float) totalDeHoras));
+            ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),elemento.getTempoInvestidoMinuto(),(elemento.getTempoInvestidoMinuto()/(float) totalDeHoras)
+            ,ativ.getPrioridade());
 
             if(listaResposta.contains(el)){
                 listaResposta.get(listaResposta.indexOf(el)).somaMinutos(el.getHoras());

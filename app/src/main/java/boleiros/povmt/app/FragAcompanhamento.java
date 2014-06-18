@@ -1,5 +1,4 @@
 package boleiros.povmt.app;
-
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,28 +46,17 @@ public class FragAcompanhamento extends Fragment  {
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
-
         return fragment;
     }
     public FragAcompanhamento() {
-        // Required empty public constructor
     }
 
-
-
     private ArrayList<TempoInvestido> getRanking() throws Exception {
-
-
         long primeiroDia,ultimoDia;
         DatabaseHelper bd = new DatabaseHelper(this.getActivity());
         List<TempoInvestido> listaTI = bd.getAllTi();
-       // System.out.println("aqi");
-
-       // System.out.println(listaTI.get(0).getCreated_at().toString());
-        //System.out.println("aqi");
         ArrayList<TempoInvestido> listaResposta = new ArrayList<TempoInvestido>();
         Calendar c = Calendar.getInstance();
-
         c.set(Calendar.DAY_OF_WEEK,1);
         primeiroDia = c.getTimeInMillis();
         c.clear();
@@ -101,44 +89,33 @@ public class FragAcompanhamento extends Fragment  {
 
         for(TempoInvestido elemento: lista){
             Atividade ativ = db.getAtividade(elemento.getIdAtividade());
-                ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),elemento.getTempoInvestidoMinuto(),(elemento.getTempoInvestidoMinuto()/(float) totalDeHoras));
+            ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),elemento.getTempoInvestidoMinuto(),(elemento.getTempoInvestidoMinuto()/(float) totalDeHoras)
+                    ,ativ.getPrioridade());
             if(listaResposta.contains(el)){
                 listaResposta.get(listaResposta.indexOf(el)).somaMinutos(el.getHoras());
-
             }else {
                 listaResposta.add(el);
             }
-
-            }
-
+        }
         return listaResposta;
-
     }
-
     private int getTotalHoras(List<TempoInvestido> lista){
         int contador = 0 ;
         for (TempoInvestido el : lista){
-            //System.out.println("total de tempo11: "+el.getTempoInvestidoMinuto());
-
             contador = contador + el.getTempoInvestidoMinuto();
         }
         return  contador;
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView2 =inflater.inflate(R.layout.fragment_frag_acompanhamento, container, false);
         ListView list = (ListView) rootView2.findViewById(R.id.listViewRanking);
         TextView tx = (TextView) rootView2.findViewById(R.id.textViewTotaldeHoras);
-
-
         try {
             ArrayList<TempoInvestido> array = getRanking();
-           // System.out.println(array.get(0));
+            // System.out.println(array.get(0));
             int totalTempo = getTotalHoras(array);
             if(totalTempo%60 == 0) {
                 tx.setText("Tempo total investido: " + totalTempo / 60 + " horas");
@@ -147,21 +124,13 @@ public class FragAcompanhamento extends Fragment  {
             }
             ArrayList<ElementoRankiavel> arrayFinal = geraLista(array,totalTempo);
             ArrayAdapter<ElementoRankiavel> adapt = new ArrayAdapter<ElementoRankiavel>(rootView2.getContext(),R.layout.simplerow,arrayFinal);
-          // tx.setText(totalTempo);
+            // tx.setText(totalTempo);
 
             list.setAdapter(adapt);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
         return rootView2;
-
     }
-
-
-
 }
