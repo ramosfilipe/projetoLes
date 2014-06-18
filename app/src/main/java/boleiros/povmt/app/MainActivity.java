@@ -4,12 +4,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -30,6 +34,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import boleiros.povmt.app.model.Atividade;
 import boleiros.povmt.app.model.TempoInvestido;
 import util.DatabaseHelper;
@@ -47,18 +57,41 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
-
+    static String emailText,nameText;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
     DatabaseHelper bd;
-
+    AccountManager mAccountManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        emailText = intent.getStringExtra("email_id");
+        if(emailText != null) {
+            Log.d("Email id: ", emailText);
+
+            System.out.println("On Home Page***" + AbstractGetNameTask.GOOGLE_USER_DATA);
+
+            try {
+                JSONObject  profileData = new JSONObject(AbstractGetNameTask.GOOGLE_USER_DATA);
+
+                if(profileData.has("picture"))
+                    Log.i("Tem foto? ", "sim. URL: " + profileData.getString("picture"));
+
+                if (profileData.has("name")){
+                    nameText = profileData.getString("name");
+                    Log.i("Tem nome? ", "sim, " + nameText);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -94,8 +127,25 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+
+        String accountName = getAccountNames()[0];
+        Log.i("Conta: ", accountName);
+
+
+
     }
 
+
+    private String[] getAccountNames() {
+        mAccountManager = AccountManager.get(this);
+        Account[] accounts = mAccountManager.getAccountsByType(
+                GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+        String[] names = new String[accounts.length];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = accounts[i].name;
+        }
+        return names;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,6 +243,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private  String emailText;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -213,8 +264,18 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
+
+
             final View rootView;
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            if(nameText != null){
+                final TextView cabecalho = (TextView) rootView.findViewById(R.id.textView2);
+                cabecalho.setText("Olá, " + nameText);
+
+            }
+
+
             final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
             // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
@@ -276,6 +337,21 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
                 }
             });
+
+
+            final Button login = (Button) rootView.findViewById(R.id.button_login);
+            login.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), SplashActivity.class);
+                    startActivity(intent);
+
+
+
+                }
+            });
+
+
+
             DatabaseHelper bd = new DatabaseHelper(this.getActivity());
             position = spinner.getSelectedItem();
             ListView list = (ListView) rootView.findViewById(R.id.listView);

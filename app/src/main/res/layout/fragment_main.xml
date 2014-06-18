@@ -37,11 +37,12 @@
         android:layout_above="@+id/botaoConfirmarTi"
         android:layout_below="@+id/autoCompleteTextView"
         android:layout_alignRight="@+id/autoCompleteTextView"
-        android:layout_alignEnd="@+id/autoCompleteTextView">
+        android:layout_alignEnd="@+id/autoCompleteTextView"
+        android:id="@+id/frameLayout">
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="148dp"
+            android:layout_height="171dp"
             android:id="@+id/listView"
             android:layout_gravity="center_horizontal|bottom" />
 
@@ -55,7 +56,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="384dp"
             android:layout_gravity="center_horizontal|top"
             android:id="@+id/relativeLayout2">
 
@@ -101,10 +102,29 @@
                 android:layout_toRightOf="@+id/numberPicker2"
                 android:layout_alignBottom="@+id/textView"
                 android:layout_alignTop="@+id/textView" />
+
         </RelativeLayout>
 
 
     </FrameLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login google"
+        android:id="@+id/button_login"
+        android:layout_alignTop="@+id/botaoConfirmarTi"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/frameLayout"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
