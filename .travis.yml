@@ -4,7 +4,10 @@ language: android
 android:
   components:
     - build-tools-19.1.0
-    - extra-google-google_play_services-4.4.52
+    - extra-google-google_play_services
+    - extra-google-google_play_services_froyo
+    - extra-google-m2repository
+
 
 before_install:
   - export TERM=dumb
