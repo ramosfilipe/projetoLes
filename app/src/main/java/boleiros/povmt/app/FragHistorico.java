@@ -29,7 +29,7 @@ import util.DuracaoTiComparator;
 
 public class FragHistorico extends Fragment {
 
-    private final long SEMANA_EM_MS = 604800000;
+    private static final long SEMANA_EM_MS = 604800000;
     /**
      * The fragment argument representing the section number for this
      * fragment.

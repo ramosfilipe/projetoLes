@@ -64,7 +64,12 @@ public class ElementoRankiavel {
 
     @Override
     public  boolean equals(Object el){
-
+        if(el == null){
+            return false;
+        }
+        if (!(el instanceof ElementoRankiavel)) {
+            return false;
+        }
         if(((ElementoRankiavel) el).getNome().equalsIgnoreCase(this.nome)){
             return true;
         }
@@ -85,6 +90,11 @@ public class ElementoRankiavel {
             if(numHoras/60 == 1) return getNome() + ": " + getHoras()/60 + " hora e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
             return getNome() + ": " + getHoras()/60 + " horas e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
         }
+    }
+    @Override
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
     }
 }
 

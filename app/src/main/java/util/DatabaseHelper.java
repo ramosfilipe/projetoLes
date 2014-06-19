@@ -147,6 +147,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.moveToFirst();
 
         Atividade td = new Atividade();
+
         td.setId((c.getInt(c.getColumnIndex(KEY_ID))));
         td.setNome((c.getString(c.getColumnIndex(KEY_NOME))));
         td.setCreated_at((c.getString(c.getColumnIndex(KEY_CREATED_AT))));
@@ -317,7 +318,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(id) });
 
     }
-  SQLiteDatabase db = this.getWritableDatabase();
 
 
     // closing database

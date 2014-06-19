@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class TempoInvestido {
     private int id;
-    private Date dataInicio;
     private String created_at;
     private int tempoInvestidoMinuto;
     private int idAtividade;
@@ -36,17 +35,6 @@ public class TempoInvestido {
             throw new Exception("id inválido");
         this.id = id;
     }
-
-    public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) throws Exception {
-        if(dataInicio == null)
-            throw new Exception("data de inicio inválida");
-        this.dataInicio = dataInicio;
-    }
-
 
     public int getIdAtividade() {
         return idAtividade;
