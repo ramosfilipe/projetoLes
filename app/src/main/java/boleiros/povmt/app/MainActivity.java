@@ -68,30 +68,30 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent intent = getIntent();
-        emailText = intent.getStringExtra("email_id");
-        if(emailText != null) {
-            Log.d("Email id: ", emailText);
-
-            System.out.println("On Home Page***" + AbstractGetNameTask.GOOGLE_USER_DATA);
-
-            try {
-                JSONObject  profileData = new JSONObject(AbstractGetNameTask.GOOGLE_USER_DATA);
-
-                if(profileData.has("picture"))
-                    Log.i("Tem foto? ", "sim. URL: " + profileData.getString("picture"));
-
-                if (profileData.has("name")){
-                    nameText = profileData.getString("name");
-                    Log.i("Tem nome? ", "sim, " + nameText);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
+//
+//        Intent intent = getIntent();
+//        emailText = intent.getStringExtra("email_id");
+//        if(emailText != null) {
+//            Log.d("Email id: ", emailText);
+//
+//            System.out.println("On Home Page***" + AbstractGetNameTask.GOOGLE_USER_DATA);
+//
+//            try {
+//                JSONObject  profileData = new JSONObject(AbstractGetNameTask.GOOGLE_USER_DATA);
+//
+//                if(profileData.has("picture"))
+//                    Log.i("Tem foto? ", "sim. URL: " + profileData.getString("picture"));
+//
+//                if (profileData.has("name")){
+//                    nameText = profileData.getString("name");
+//                    Log.i("Tem nome? ", "sim, " + nameText);
+//                }
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
