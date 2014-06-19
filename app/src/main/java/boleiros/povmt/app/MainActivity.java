@@ -1,44 +1,34 @@
 package boleiros.povmt.app;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.ActionBar;
-import android.app.Application;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 import boleiros.povmt.app.model.Atividade;
 import boleiros.povmt.app.model.TempoInvestido;

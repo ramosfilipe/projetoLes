@@ -5,12 +5,10 @@ package util;
  */
 
 import android.annotation.TargetApi;
-
-        import android.annotation.TargetApi;
-        import android.content.Context;
-        import android.os.Build;
-        import android.util.AttributeSet;
-        import android.widget.NumberPicker;
+import android.content.Context;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.widget.NumberPicker;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)//For backward-compability
 public class MyNumberPicker extends NumberPicker {

@@ -1,7 +1,5 @@
 package boleiros.povmt.app.model;
 
-import java.util.Date;
-
 /**
  * Created by Walter on 28/05/2014.
  */

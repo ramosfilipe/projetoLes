@@ -1,13 +1,12 @@
 package java.boleiros.povmt.test;
 
-import org.pestrada.android_tdd_playground.MainActivity;
-import org.pestrada.android_tdd_playground.R;
-
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.widget.Button;
-import android.widget.TextView;
+
+import org.pestrada.android_tdd_playground.MainActivity;
+import org.pestrada.android_tdd_playground.R;
 
 public class MainActivityTest extends
     ActivityInstrumentationTestCase2<MainActivity> {
