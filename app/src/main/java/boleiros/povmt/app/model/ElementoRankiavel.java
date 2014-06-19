@@ -4,6 +4,19 @@ package boleiros.povmt.app.model;
  * Criado por Filipe Ramos em 03/06/14 as 22.
  */
 public class ElementoRankiavel {
+    private static final int NUMERO_DE_MINUTOS_EM_UMA_HORA = 60;
+    private String nome;
+    private int horas;
+    private String prioridade;
+    private double proporcao;
+
+    public ElementoRankiavel(String nome, int horas, double proporcao , String prioridade) {
+        this.nome = nome;
+        this.horas = horas;
+        this.proporcao = proporcao;
+        this.prioridade = prioridade;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -20,10 +33,6 @@ public class ElementoRankiavel {
         this.horas = horas;
     }
 
-    private String nome;
-
-    private int horas;
-
     public double getProporcao() {
         return proporcao;
     }
@@ -31,8 +40,6 @@ public class ElementoRankiavel {
     public void setProporcao(double proporcao) {
         this.proporcao = proporcao;
     }
-
-    private double proporcao;
 
     public String getPrioridade() {
         return prioridade;
@@ -42,25 +49,12 @@ public class ElementoRankiavel {
         this.prioridade = prioridade;
     }
 
-    private String prioridade;
-
-    public ElementoRankiavel(String nome, int horas, double proporcao , String prioridade) {
-        this.nome = nome;
-        this.horas = horas;
-        this.proporcao = proporcao;
-
-        this.prioridade = prioridade;
-    }
     public void somaMinutos(int valor){
         setHoras(this.horas+valor);
-
-
     }
     public void somaProp(double valor){
         setProporcao(this.proporcao+valor);
     }
-
-
 
     @Override
     public  boolean equals(Object el){
@@ -76,19 +70,18 @@ public class ElementoRankiavel {
         return false;
     }
 
-
     @Override
     public String toString(){
         String prop = ""+(getProporcao()*100);
         prop = prop.substring(0,4);
         int numHoras = getHoras();
-        if(numHoras%60 == 0) {
-            if(numHoras/60 == 1) return getNome() + ": " + getHoras()/60 + " hora | Prop: " + prop + " %" + " | " + getPrioridade();
-            return getNome() + ": " + getHoras()/60 + " horas | Prop: " + prop + " %"+ " | " + getPrioridade();
+        if(numHoras%NUMERO_DE_MINUTOS_EM_UMA_HORA == 0) {
+            if(numHoras/NUMERO_DE_MINUTOS_EM_UMA_HORA == 1) return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " hora | Prop: " + prop + " %" + " | " + getPrioridade();
+            return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " horas | Prop: " + prop + " %"+ " | " + getPrioridade();
         } else{
-            int numMinutos = numHoras%60;
-            if(numHoras/60 == 1) return getNome() + ": " + getHoras()/60 + " hora e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
-            return getNome() + ": " + getHoras()/60 + " horas e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
+            int numMinutos = numHoras%NUMERO_DE_MINUTOS_EM_UMA_HORA;
+            if(numHoras/NUMERO_DE_MINUTOS_EM_UMA_HORA == 1) return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " hora e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
+            return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " horas e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
         }
     }
     @Override

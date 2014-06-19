@@ -51,44 +51,29 @@ public class FragHistorico extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View historicoView = inflater.inflate(R.layout.fragment_historico, container, false);
         ListView listSemanaAtual = (ListView) historicoView.findViewById(R.id.listViewSemanaAtual);
         ListView listSemanaPassada = (ListView) historicoView.findViewById(R.id.listViewSemanaPassada);
         ListView listSemanaRetrasada = (ListView) historicoView.findViewById(R.id.listViewSemanaRetrasada);
-
         try{
             ArrayList<TempoInvestido> semanaAtual = getRanking(0);
             ArrayList<TempoInvestido> semanaPassada = getRanking(1);
             ArrayList<TempoInvestido> semanaRetrasada = getRanking(2);
-
             ArrayList<ElementoRankiavel> semanaAtualFinal = geraLista(semanaAtual, getTotalHoras(semanaAtual));
             ArrayList<ElementoRankiavel> semanaPassadaFinal = geraLista(semanaPassada, getTotalHoras(semanaPassada));
             ArrayList<ElementoRankiavel> semanaRetrasadaFinal = geraLista(semanaRetrasada, getTotalHoras(semanaRetrasada));
-
-//            Toast t = Toast.makeText(historicoView.getContext(), "", Toast.LENGTH_SHORT);
-
-          //  t.show();
-
             ArrayAdapter<ElementoRankiavel> adaptAtual = new ArrayAdapter<ElementoRankiavel>(
                     historicoView.getContext(),R.layout.simplerow,semanaAtualFinal);
-
             ArrayAdapter<ElementoRankiavel> adaptPassada = new ArrayAdapter<ElementoRankiavel>(
                     historicoView.getContext(),R.layout.simplerow,semanaPassadaFinal);
-
             ArrayAdapter<ElementoRankiavel> adaptRetrasada = new ArrayAdapter<ElementoRankiavel>(
                     historicoView.getContext(),R.layout.simplerow,semanaRetrasadaFinal);
-
             listSemanaAtual.setAdapter(adaptAtual);
             listSemanaPassada.setAdapter(adaptPassada);
             listSemanaRetrasada.setAdapter(adaptRetrasada);
-
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
-
         return historicoView;
     }
 
@@ -105,70 +90,50 @@ public class FragHistorico extends Fragment {
         long primeiroDia,ultimoDia;
         DatabaseHelper bd = new DatabaseHelper(this.getActivity());
         List<TempoInvestido> listaTI = bd.getAllTi();
-
-
         ArrayList<TempoInvestido> listaResposta = new ArrayList<TempoInvestido>();
         Calendar c = Calendar.getInstance();
-
         c.set(Calendar.DAY_OF_WEEK,1);
         primeiroDia = c.getTimeInMillis() -  (SEMANA_EM_MS * semanaDesejada);
         c.clear();
         c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_WEEK,7);
         ultimoDia = c.getTimeInMillis() -  (SEMANA_EM_MS * semanaDesejada);
-
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
         for(TempoInvestido ti: listaTI){
-            //System.out.println( ti.getCreated_at());
             c.setTime(dateFormat.parse(ti.getCreated_at()));
             long tempoTi = c.getTimeInMillis();
             if(tempoTi>=primeiroDia && tempoTi<=ultimoDia){
                 listaResposta.add(ti);
             }
         }
-
-
         Collections.sort(listaResposta, new DuracaoTiComparator());
-
         return listaResposta;
-
-
     }
 
     private ArrayList<ElementoRankiavel> geraLista (ArrayList<TempoInvestido> ranking, int totalDeHoras) throws Exception {
         ArrayList<TempoInvestido> lista = ranking;
         ArrayList<ElementoRankiavel> listaResposta = new ArrayList<ElementoRankiavel>();
         DatabaseHelper db = new DatabaseHelper(this.getActivity());
-
         for(TempoInvestido elemento: lista){
             Atividade ativ = db.getAtividade(elemento.getIdAtividade());
             ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),elemento.getTempoInvestidoMinuto(),(elemento.getTempoInvestidoMinuto()/(float) totalDeHoras)
             ,ativ.getPrioridade());
-
             if(listaResposta.contains(el)){
                 listaResposta.get(listaResposta.indexOf(el)).somaMinutos(el.getHoras());
                 listaResposta.get(listaResposta.indexOf(el)).somaProp(el.getProporcao());
-
             }else {
                 listaResposta.add(el);
             }
         }
-
         return listaResposta;
-
     }
 
     private int getTotalHoras(List<TempoInvestido> lista){
         int contador = 0 ;
         for (TempoInvestido el : lista){
-            //System.out.println("total de tempo11: "+el.getTempoInvestidoMinuto());
-
             contador = contador + el.getTempoInvestidoMinuto();
         }
         return  contador;
     }
-
-
 }

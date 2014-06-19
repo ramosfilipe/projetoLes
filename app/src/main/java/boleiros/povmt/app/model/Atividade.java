@@ -14,7 +14,6 @@ public class Atividade {
         this.prioridade = prioridade;
     }
 
-
     public String getCreated_at() {
         return created_at;
     }
@@ -22,8 +21,6 @@ public class Atividade {
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
-
-
 
     public int getId() {
         return id;
@@ -41,9 +38,10 @@ public class Atividade {
 
     public void setNome(String nome) throws Exception {
         if(nome == null || nome.trim().equals(""))
-            throw new Exception("nome inválido");
+            throw new Exception("nome invalido");
         this.nome = nome;
     }
+
     @Override
     public String toString(){
         return getNome()+"|"+getPrioridade();

@@ -29,7 +29,7 @@ public class FragAcompanhamento extends Fragment  {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "2";
-
+    private static final int NUMERO_DE_MINUTOS_EM_UMA_HORA = 60;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -113,10 +113,10 @@ public class FragAcompanhamento extends Fragment  {
             ArrayList<TempoInvestido> array = getRanking();
             // System.out.println(array.get(0));
             int totalTempo = getTotalHoras(array);
-            if(totalTempo%60 == 0) {
-                tx.setText("Tempo total investido: " + totalTempo / 60 + " horas");
+            if(totalTempo % NUMERO_DE_MINUTOS_EM_UMA_HORA == 0) {
+                tx.setText("Tempo total investido: " + totalTempo / NUMERO_DE_MINUTOS_EM_UMA_HORA + " horas");
             } else{
-                tx.setText("Tempo total investido: " + totalTempo / 60 + " horas e " + totalTempo%60 + " minutos");
+                tx.setText("Tempo total investido: " + totalTempo / NUMERO_DE_MINUTOS_EM_UMA_HORA + " horas e " + totalTempo % NUMERO_DE_MINUTOS_EM_UMA_HORA + " minutos");
             }
             ArrayList<ElementoRankiavel> arrayFinal = geraLista(array,totalTempo);
             ArrayAdapter<ElementoRankiavel> adapt = new ArrayAdapter<ElementoRankiavel>(rootView2.getContext(),R.layout.simplerow,arrayFinal);
