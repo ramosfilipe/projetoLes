@@ -116,7 +116,7 @@ public class FragHistorico extends Fragment {
         return listaResposta;
     }
 
-    private ArrayList<ElementoRankiavel> geraLista (ArrayList<TempoInvestido> ranking,
+    private ArrayList<ElementoRankiavel> geraLista(ArrayList<TempoInvestido> ranking,
                                                     int totalDeHoras) throws Exception {
         ArrayList<TempoInvestido> lista = ranking;
         ArrayList<ElementoRankiavel> listaResposta = new ArrayList<ElementoRankiavel>();
@@ -125,7 +125,7 @@ public class FragHistorico extends Fragment {
             Atividade ativ = db.getAtividade(elemento.getIdAtividade());
             ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),
                                     elemento.getTempoInvestidoMinuto(),
-                                    (elemento.getTempoInvestidoMinuto()/(float) totalDeHoras),
+                                    (elemento.getTempoInvestidoMinuto() / (float) totalDeHoras),
                                     ativ.getPrioridade());
             if (listaResposta.contains(el)) {
                 listaResposta.get(listaResposta.indexOf(el)).somaMinutos(el.getHoras());

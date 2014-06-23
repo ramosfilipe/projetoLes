@@ -54,8 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Create Statements
     // Todo table create statement
     private static final String CREATE_TABLE_ATIVIDADE  = "CREATE TABLE "
-            + TABLE_ATIVIDADE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIORIDADE+ " TEXT," +
-            KEY_NOME + " TEXT," + KEY_CREATED_AT + " DATETIME" + ")";
+            + TABLE_ATIVIDADE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIORIDADE + " TEXT,"
+            + KEY_NOME + " TEXT," + KEY_CREATED_AT + " DATETIME" + ")";
 
     // tempo investido table create statement
     private static final String CREATE_TABLE_TI = "CREATE TABLE " + TABLE_TI
@@ -134,7 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Atividade getAtividadeByName(String nome1) throws Exception {
         SQLiteDatabase db = this.getReadableDatabase();
-        String var= "'"+nome1+"'";
+        String var = "'" + nome1 + "'";
 
         String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE + " WHERE "
                 + KEY_NOME + " = " + var;
@@ -162,7 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Boolean isActivityOnDB(String nome1) throws Exception {
         SQLiteDatabase db = this.getReadableDatabase();
-        String var= "'"+nome1+"'";
+        String var = "'" + nome1 + "'";
         String selectQuery = "SELECT  * FROM " + TABLE_ATIVIDADE + " WHERE "
                 + KEY_NOME + " = " + var;
 

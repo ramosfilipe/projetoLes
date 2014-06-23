@@ -78,7 +78,7 @@ public class FragAcompanhamento extends Fragment  {
         return listaResposta;
     }
 
-    private ArrayList<ElementoRankiavel> geraLista (ArrayList<TempoInvestido> ranking,
+    private ArrayList<ElementoRankiavel> geraLista(ArrayList<TempoInvestido> ranking,
                                                     int totalDeHoras) throws Exception {
         ArrayList<TempoInvestido> lista = ranking;
         ArrayList<ElementoRankiavel> listaResposta = new ArrayList<ElementoRankiavel>();
@@ -88,7 +88,7 @@ public class FragAcompanhamento extends Fragment  {
             Atividade ativ = db.getAtividade(elemento.getIdAtividade());
             ElementoRankiavel  el = new ElementoRankiavel(ativ.getNome(),
                     elemento.getTempoInvestidoMinuto(),
-                    (elemento.getTempoInvestidoMinuto()/(float)totalDeHoras), ativ.getPrioridade());
+                    (elemento.getTempoInvestidoMinuto() / (float) totalDeHoras), ativ.getPrioridade());
             if (listaResposta.contains(el)) {
                 listaResposta.get(listaResposta.indexOf(el)).somaMinutos(el.getHoras());
             } else {
@@ -116,15 +116,15 @@ public class FragAcompanhamento extends Fragment  {
             // System.out.println(array.get(0));
             int totalTempo = getTotalHoras(array);
             if (totalTempo % NUMERO_DE_MINUTOS_EM_UMA_HORA == 0) {
-                tx.setText("Tempo total investido: " + totalTempo / NUMERO_DE_MINUTOS_EM_UMA_HORA +
-                           " horas");
+                tx.setText("Tempo total investido: " + totalTempo / NUMERO_DE_MINUTOS_EM_UMA_HORA
+                        + " horas");
             } else {
-                tx.setText("Tempo total investido: " + totalTempo / NUMERO_DE_MINUTOS_EM_UMA_HORA +
-                        " horas e " + totalTempo % NUMERO_DE_MINUTOS_EM_UMA_HORA + " minutos");
+                tx.setText("Tempo total investido: " + totalTempo / NUMERO_DE_MINUTOS_EM_UMA_HORA
+                        + " horas e " + totalTempo % NUMERO_DE_MINUTOS_EM_UMA_HORA + " minutos");
             }
             ArrayList<ElementoRankiavel> arrayFinal = geraLista(array, totalTempo);
             ArrayAdapter<ElementoRankiavel> adapt = new ArrayAdapter<ElementoRankiavel>(rootView2.getContext(),
-                                                                    R.layout.simplerow, arrayFinal);
+                                                                   R.layout.simplerow, arrayFinal);
             // tx.setText(totalTempo);
 
             list.setAdapter(adapt);
