@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
-    static String emailText,nameText;
+    static String emailText, nameText;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -71,9 +71,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             try {
                 JSONObject profileData = new JSONObject(AbstractGetNameTask.GOOGLE_USER_DATA);
 
-                if(profileData.has("picture"))
+                if(profileData.has("picture")) {
                     Log.i("Tem foto? ", "sim. URL: " + profileData.getString("picture"));
-
+                }
                 if (profileData.has("name")){
                     nameText = profileData.getString("name");
                     Log.i("Tem nome? ", "sim, " + nameText);
@@ -190,16 +190,16 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case(0):
-                    return  boleiros.povmt.app.FragHistorico.newInstance(position );
+                    return  boleiros.povmt.app.FragHistorico.newInstance(position);
 
                 case(1):
-                    return  PlaceholderFragment.newInstance(position );
+                    return  PlaceholderFragment.newInstance(position);
 
                 case(2):
-                    return  FragAcompanhamento.newInstance(position );
+                    return  FragAcompanhamento.newInstance(position);
 
                 default:
-                    return  PlaceholderFragment.newInstance(position );
+                    return  PlaceholderFragment.newInstance(position);
 
 
             }
@@ -208,7 +208,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            int pages = 3;
+            return pages;
         }
 
         @Override
@@ -221,6 +222,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                     return getString(R.string.title_section2).toUpperCase(l);
                 case 2:
                     return getString(R.string.title_section3).toUpperCase(l);
+                default:
+                    System.out.println("Opcao Invalida.");
+
             }
             return null;
         }
@@ -290,6 +294,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
                 DatabaseHelper bd = new DatabaseHelper(rootView.getContext());
                 public void onClick(View v) {
+                    int min = 60;
                     position = spinner.getSelectedItem();
                     TempoInvestido ti = new TempoInvestido();
                     try {
@@ -301,16 +306,15 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                         if(bd.isActivityOnDB(nomeAtividade)){
                             ativ = bd.getAtividadeByName(nomeAtividade);
                             idAtividade = ativ.getId();
-                        }
-                        else{
+                        } else {
                             ativ = new Atividade();
                             ativ.setPrioridade(prioridadeAtividade);
                             ativ.setNome(nomeAtividade);
                             idAtividade = bd.createAtividade(ativ);
                         }
-                        ti.setTempoInvestidoMinuto((horas.getValue() * 60) + minutos.getValue());
-                        bd.createTI(ti,idAtividade);
-                        Log.d("Tag","msg " + bd.getAtividadeCount());
+                        ti.setTempoInvestidoMinuto((horas.getValue() * min) + minutos.getValue());
+                        bd.createTI(ti, idAtividade);
+                        Log.d("Tag", "msg " + bd.getAtividadeCount());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
