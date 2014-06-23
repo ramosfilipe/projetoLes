@@ -27,7 +27,7 @@ public class Atividade {
     }
 
     public void setId(int id) throws Exception {
-        if(id < 0) {
+        if (id < 0) {
             throw new Exception("id inválido");
         }
         this.id = id;
@@ -45,7 +45,7 @@ public class Atividade {
     }
 
     @Override
-    public String toString(){
-        return getNome()+"|"+getPrioridade();
+    public String toString() {
+        return getNome() + "|" + getPrioridade();
     }
 }

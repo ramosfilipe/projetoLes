@@ -10,16 +10,15 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by Walter on 18/06/2014.
  */
-public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
+public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void> {
 
     private static final String TAG = "TokenInfoTask";
     protected SplashActivity mActivity;
-    public static String GOOGLE_USER_DATA="No_data";
+    public static String GOOGLE_USER_DATA = "No_data";
     protected String mScope;
     protected String mEmail;
     protected int mRequestCode;
@@ -46,7 +45,8 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
 
     protected void onError(String msg, Exception e) {
         if (e != null) {
-            Log.e(TAG, "Exception: ", e); }
+            Log.e(TAG, "Exception: ", e);
+        }
     }
 
 
@@ -59,7 +59,7 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
 
         String token = fetchToken();
 
-        URL url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token="+ token);
+        URL url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + token);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         int sc = con.getResponseCode();
 
@@ -67,7 +67,7 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
             InputStream is = con.getInputStream();
             GOOGLE_USER_DATA = readResponse(is);
             is.close();
-            Intent intent=new Intent(mActivity,MainActivity.class);
+            Intent intent = new Intent(mActivity, MainActivity.class);
             intent.putExtra("email_id", mEmail);
             mActivity.startActivity(intent);
             //mActivity.finish();

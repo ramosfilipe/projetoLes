@@ -55,14 +55,15 @@ public class SplashActivity extends Activity {
 
     public void syncGoogleAccount() {
 
-        if (isNetworkAvailable() == true) {
+        if (isNetworkAvailable()) {
             String[] accountarrs = getAccountNames();
 
             if (accountarrs.length > 0) {
                  //you can set here account for login
                 getTask(SplashActivity.this, accountarrs[0], SCOPE).execute();
             } else {
-                Toast.makeText(SplashActivity.this, "No Google Account Sync!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SplashActivity.this, "No Google Account Sync!",
+                                                                        Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(SplashActivity.this, "No Network Service!", Toast.LENGTH_SHORT).show();
@@ -71,7 +72,8 @@ public class SplashActivity extends Activity {
 
 
     public boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(
+                                                                    Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             Log.e("Network Testing", "***Available***");

@@ -48,7 +48,7 @@ public class TempoInvestido {
 
 
     @Override
-    public String toString(){
-        return ""+getTempoInvestidoMinuto();
+    public String toString() {
+        return "" + getTempoInvestidoMinuto();
     }
 }

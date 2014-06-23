@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "tempoManager";
 
     // Table Names
-    private static final String TABLE_ATIVIDADE= "atividades";
+    private static final String TABLE_ATIVIDADE = "atividades";
     private static final String TABLE_TI = "tempo_investido";
 
 
@@ -54,9 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Create Statements
     // Todo table create statement
     private static final String CREATE_TABLE_ATIVIDADE  = "CREATE TABLE "
-            + TABLE_ATIVIDADE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIORIDADE+ " TEXT,"+ KEY_NOME
-            + " TEXT," + KEY_CREATED_AT
-            + " DATETIME" + ")";
+            + TABLE_ATIVIDADE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIORIDADE+ " TEXT," +
+            KEY_NOME + " TEXT," + KEY_CREATED_AT + " DATETIME" + ")";
 
     // tempo investido table create statement
     private static final String CREATE_TABLE_TI = "CREATE TABLE " + TABLE_TI
@@ -119,8 +118,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null)
+        if (c != null) {
             c.moveToFirst();
+        }
 
         Atividade td = new Atividade();
         td.setId(c.getInt(c.getColumnIndex(KEY_ID)));
@@ -143,8 +143,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null)
+        if (c != null) {
             c.moveToFirst();
+        }
 
         Atividade td = new Atividade();
 
@@ -169,10 +170,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null) {
-            if(c.moveToFirst()){
+        if (c != null && c.moveToFirst()) {
                 return true;
-            }
         }
         return false;
     }
@@ -323,8 +322,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // closing database
     public void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();
-        if (db != null && db.isOpen())
+        if (db != null && db.isOpen()) {
             db.close();
+        }
     }
 
     /**

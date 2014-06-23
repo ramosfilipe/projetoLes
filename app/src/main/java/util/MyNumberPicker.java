@@ -27,7 +27,8 @@ public class MyNumberPicker extends NumberPicker {
         processAttributeSet(attrs);
     }
     private void processAttributeSet(AttributeSet attrs) {
-        //This method reads the parameters given in the xml file and sets the properties according to it
+        //This method reads the parameters given in the xml file and
+        // sets the properties according to it
         this.setMinValue(attrs.getAttributeIntValue(null, "min", 0));
         this.setMaxValue(attrs.getAttributeIntValue(null, "max", 0));
     }
