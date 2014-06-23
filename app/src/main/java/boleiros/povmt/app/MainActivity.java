@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
        Intent intent = getIntent();
         emailText = intent.getStringExtra("email_id");
-        if(emailText != null) {
+        if (emailText != null) {
             Log.d("Email id: ", emailText);
 
            System.out.println("On Home Page***" + AbstractGetNameTask.GOOGLE_USER_DATA);
@@ -71,10 +71,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             try {
                 JSONObject profileData = new JSONObject(AbstractGetNameTask.GOOGLE_USER_DATA);
 
-                if(profileData.has("picture")) {
+                if (profileData.has("picture")) {
                     Log.i("Tem foto? ", "sim. URL: " + profileData.getString("picture"));
                 }
-                if (profileData.has("name")){
+                if (profileData.has("name")) {
                     nameText = profileData.getString("name");
                     Log.i("Tem nome? ", "sim, " + nameText);
                 }
@@ -188,7 +188,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            switch(position){
+            switch(position) {
                 case(0):
                     return  boleiros.povmt.app.FragHistorico.newInstance(position);
 
@@ -208,8 +208,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            int pages = 3;
-            return pages;
+            return 3;
         }
 
         @Override
@@ -265,7 +264,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             final View rootView;
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-            if(nameText != null){
+            if (nameText != null) {
                 final TextView cabecalho = (TextView) rootView.findViewById(R.id.textView2);
                 cabecalho.setText("Olá, " + nameText);
 
@@ -294,7 +293,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
                 DatabaseHelper bd = new DatabaseHelper(rootView.getContext());
                 public void onClick(View v) {
-                    int min = 60;
                     position = spinner.getSelectedItem();
                     TempoInvestido ti = new TempoInvestido();
                     try {
@@ -303,7 +301,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                         String nomeAtividade = texto.getText().toString();
                         String prioridadeAtividade = position.toString();
 
-                        if(bd.isActivityOnDB(nomeAtividade)){
+                        if (bd.isActivityOnDB(nomeAtividade)) {
                             ativ = bd.getAtividadeByName(nomeAtividade);
                             idAtividade = ativ.getId();
                         } else {
@@ -312,7 +310,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                             ativ.setNome(nomeAtividade);
                             idAtividade = bd.createAtividade(ativ);
                         }
-                        ti.setTempoInvestidoMinuto((horas.getValue() * min) + minutos.getValue());
+                        ti.setTempoInvestidoMinuto((horas.getValue() * 60) + minutos.getValue());
                         bd.createTI(ti, idAtividade);
                         Log.d("Tag", "msg " + bd.getAtividadeCount());
                     } catch (Exception e) {
@@ -322,7 +320,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                         List<Atividade> lista = bd.getAllAtividades();
                         Collections.reverse(lista);
                         ListView list = (ListView) rootView.findViewById(R.id.listView);
-                        ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,lista);
+                        ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(), R.layout.simplerow, lista);
                         list.setAdapter(adapt);
                         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
                         autoCompleteTextView.setAdapter(adapt);
@@ -354,7 +352,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             try {
                 List<Atividade> lista = bd.getAllAtividades();
                 Collections.reverse(lista);
-                ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(),R.layout.simplerow,lista);
+                ArrayAdapter<Atividade> adapt = new ArrayAdapter<Atividade>(rootView.getContext(), R.layout.simplerow, lista);
                 list.setAdapter(adapt);
                 AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView);
                 autoCompleteTextView.setAdapter(adapt);

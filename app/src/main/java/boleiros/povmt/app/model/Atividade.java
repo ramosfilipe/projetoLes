@@ -27,8 +27,9 @@ public class Atividade {
     }
 
     public void setId(int id) throws Exception {
-        if(id < 0)
+        if(id < 0) {
             throw new Exception("id inválido");
+        }
         this.id = id;
     }
 
@@ -37,8 +38,9 @@ public class Atividade {
     }
 
     public void setNome(String nome) throws Exception {
-        if(nome == null || nome.trim().equals(""))
+        if (nome == null || nome.trim().equals("")) {
             throw new Exception("nome invalido");
+        }
         this.nome = nome;
     }
 

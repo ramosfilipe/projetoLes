@@ -23,6 +23,7 @@ public class GetNameInForeground extends AbstractGetNameTask  {
             return GoogleAuthUtil.getToken(mActivity, mEmail, mScope);
         } catch (GooglePlayServicesAvailabilityException playEx) {
             // GooglePlayServices.apk is either old, disabled, or not present.
+            System.err.println("Erro");
         } catch (UserRecoverableAuthException userRecoverableException) {
             // Unable to authenticate, but the user can fix this.
             // Forward the user to the appropriate activity.

@@ -29,8 +29,9 @@ public class TempoInvestido {
     }
 
     public void setId(int id) throws Exception {
-        if(id < 0)
+        if (id < 0) {
             throw new Exception("id inválido");
+        }
         this.id = id;
     }
 
@@ -39,8 +40,9 @@ public class TempoInvestido {
     }
 
     public void setIdAtividade(int idAtividade) throws Exception {
-        if(idAtividade < 0)
+        if (idAtividade < 0) {
             throw new Exception("id da atividade inválido");
+        }
         this.idAtividade = idAtividade;
     }
 

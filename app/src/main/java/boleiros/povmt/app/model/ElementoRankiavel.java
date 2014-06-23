@@ -76,11 +76,15 @@ public class ElementoRankiavel {
         prop = prop.substring(0,4);
         int numHoras = getHoras();
         if(numHoras%NUMERO_DE_MINUTOS_EM_UMA_HORA == 0) {
-            if(numHoras/NUMERO_DE_MINUTOS_EM_UMA_HORA == 1) return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " hora | Prop: " + prop + " %" + " | " + getPrioridade();
+            if (numHoras/NUMERO_DE_MINUTOS_EM_UMA_HORA == 1) {
+                return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " hora | Prop: " + prop + " %" + " | " + getPrioridade();
+            }
             return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " horas | Prop: " + prop + " %"+ " | " + getPrioridade();
         } else{
             int numMinutos = numHoras%NUMERO_DE_MINUTOS_EM_UMA_HORA;
-            if(numHoras/NUMERO_DE_MINUTOS_EM_UMA_HORA == 1) return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " hora e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
+            if (numHoras/NUMERO_DE_MINUTOS_EM_UMA_HORA == 1) {
+                return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " hora e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
+            }
             return getNome() + ": " + getHoras()/NUMERO_DE_MINUTOS_EM_UMA_HORA + " horas e " + numMinutos +" minutos | Prop: " + prop + " %"+ " | " + getPrioridade();
         }
     }
